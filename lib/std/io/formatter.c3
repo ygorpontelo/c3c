@@ -353,6 +353,16 @@ macro usz! @wrap_bad(Formatter* f, #action)
 	return len;
 }
 
+macro bool @check_len_args_format(String format, any[] anys)
+{
+	int i = 0;
+	foreach (c : format) if (c == '%') i++;
+	return i == anys.len;
+}
+
+<*
+	@require @check_len_args_format(format, anys)
+*>
 fn usz! Formatter.vprintf(&self, String format, any[] anys)
 {
 	self.first_fault = {};
